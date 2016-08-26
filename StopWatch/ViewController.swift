@@ -12,9 +12,8 @@ class ViewController: UIViewController {
 
     var timer = NSTimer()
 
-    var time: Int = 0
-
-    var timeInterval = 1000 // milisecond
+    var time: Int = 0       // milisecond
+    let timeInterval = 100  // milisecond
     
     @IBOutlet weak var timerLabel: UILabel!
 
@@ -30,14 +29,28 @@ class ViewController: UIViewController {
         displayCurrentTime()
     }
 
+    // DRY: Don't repeat yourself
+    func forceLength(value: Int, length: Int) -> String {
+        var str = "\(value)"
+        while str.characters.count < length {
+            str = "0" + str
+        }
+        return str
+    }
+
     func displayCurrentTime() {
-        let minuteCount = time / timeInterval / 60
-        let minutesString = minuteCount < 10 ? "0\(minuteCount)" : "\(minuteCount)"
+        let minuteCount = time / 1000 / 60
+        let minutesString = forceLength(minuteCount, length: 2)
 
-        let secondCount = time / timeInterval - minuteCount * 60
-        let secondsString = secondCount < 10 ? "0\(secondCount)" : "\(secondCount)"
+        let secondCount = time / 1000 - minuteCount * 60
+        let secondString = forceLength(secondCount, length: 2)
 
-        timerLabel.text = minutesString + ":" + secondsString
+
+
+        let milisecondCount = time - (minuteCount * 60 + secondCount) * 1000
+        let milisecondString = forceLength(milisecondCount, length: 3)
+
+        timerLabel.text = minutesString + ":" + secondString + ":" + milisecondString
     }
 
     @IBAction func play(sender: AnyObject) {
@@ -47,12 +60,14 @@ class ViewController: UIViewController {
             changeFirstButtonTo(.Play)
         } else {
             changeFirstButtonTo(.Pause)
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:#selector(increaseTime), userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(timeInterval/1000), target: self, selector:#selector(increaseTime), userInfo: nil, repeats: true)
         }
     }
 
     @IBAction func reset(sender: AnyObject) {
-        timer.invalidate()
+        if timer.valid {
+            timer.invalidate()
+        }
         time = 0
         displayCurrentTime()
     }
