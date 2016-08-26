@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var timerLabel: UILabel!
 
+    @IBOutlet weak var toolbar: UIToolbar!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         displayCurrentTime()
@@ -42,7 +44,9 @@ class ViewController: UIViewController {
 
         if timer.valid {
             timer.invalidate()
+            changeFirstButtonTo(.Play)
         } else {
+            changeFirstButtonTo(.Pause)
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector:#selector(increaseTime), userInfo: nil, repeats: true)
         }
     }
@@ -51,6 +55,12 @@ class ViewController: UIViewController {
         timer.invalidate()
         time = 0
         displayCurrentTime()
+    }
+
+    func changeFirstButtonTo(style: UIBarButtonSystemItem) {
+        let playButton = UIBarButtonItem(barButtonSystemItem: style, target: self, action: #selector(play(_:)))
+
+        toolbar.items = [playButton, toolbar.items![1], toolbar.items![2]]
     }
 }
 
