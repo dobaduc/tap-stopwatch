@@ -1,7 +1,7 @@
 //
 //  ViewController.swift
 //  StopWatch
-//
+//  by MEMEMEMEMEMEMEMEMEMEMEMEMEME
 //  Created by Ducky Duke.
 //  Copyright © 2016 Duke. All rights reserved.
 //
