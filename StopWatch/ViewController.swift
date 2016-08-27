@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     var timer = NSTimer()
 
     var time: Int = 0       // milisecond
-    let timeInterval = 100  // milisecond
+    let timeInterval = 1000  // milisecond
     
     @IBOutlet weak var timerLabel: UILabel!
 
