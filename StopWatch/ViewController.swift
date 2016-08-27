@@ -37,7 +37,7 @@ class ViewController: UIViewController {
         }
         return str
     }
-
+//hihiihhihihii
     func displayCurrentTime() {
         let minuteCount = time / 1000 / 60
         let minutesString = forceLength(minuteCount, length: 2)
