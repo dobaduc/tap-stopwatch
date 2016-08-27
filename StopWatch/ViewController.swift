@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         displayCurrentTime()
     }
 
-    // DRY: Don't repeat yourself
+    // DRY: grtrhtrhjrhtr gdhgdghfhgf Don't repeat yourself
     func forceLength(value: Int, length: Int) -> String {
         var str = "\(value)"
         while str.characters.count < length {
